@@ -32,30 +32,44 @@ body{
 	display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     overflow: hidden;
     background: var(--bg);
 }
-	#reels-r{
+	#reels-line{
+		position: absolute;
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+		padding: 20px;
+	}
+	#reels-line div{
+		display: flex;
+		z-index: 20;
+		background: var(--white);
+		border-radius: 3px;
+	}
+	#reels-row{
 		display: flex;
 		gap: 20px;
 	}
-		#reels-r div{
+		#reels-row div{
 			display: flex;
 	    	align-items: center;
 	    	justify-content: center;
 			border-radius: 10px;
 		}
-			#reels-r div p{
+			#reels-row div p{
 				display: flex;
 	    		align-items: center;
 	    		justify-content: center;
 				width: 80%;
 				height: 80%;
-		    	border: 2px solid var(--white); 
+		    	border: 3px solid var(--white); 
 				border-radius: 50%;
 		    	color: var(--white);
-		    	font-family: 'Comfortaa', cursive;
-		    	font-size: 24px;
+		    	font-family: cursive, 'Comfortaa';
+		    	font-size: 30px;
 		    	font-weight: 500;
 			}
 	.anim{
