@@ -25,6 +25,7 @@ const roulette = {
             game.reels_counter.innerHTML = "<p> Girando em "+time.toFixed(2).replace(".", ":")+"</p>"
         }, 10)
         setTimeout(()=>{
+            game.reels_counter.innerHTML = "<p> Girando ... </p>"
             clearInterval(count)
             roulette.swap()
         }, 15000)
@@ -33,7 +34,6 @@ const roulette = {
         setTimeout(()=>{
             game.reels_itens.className = "anim opacity"
             game.reels_row.className = "opacity"
-
             swap_itens()
         }, 1000)
         setTimeout(()=>{

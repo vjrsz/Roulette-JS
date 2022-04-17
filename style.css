@@ -26,7 +26,7 @@ body{
     justify-content: center;
 
 	color: var(--white);
-	font-family: cursive, 'Comfortaa';
+	font-family: 'Comfortaa',  cursive;
 	font-weight: 500;
 }
 #game{
