@@ -7,57 +7,70 @@ const game = {
         size : {  w: 720, h: 480 },
         itens_size : { w: 80, h: 80 },
             
-    },
-    colors: {
-        white: "#ebdfcc",
-        black: "#021b2b",
-        red: "#ff0841",
-    },
-    rgb: {
-        white: "rgb(235 223 204)",
-        black: "rgb(2 27 43)",
-        red: "rgb(255 8 65)",
     }
 }
-const slotMachine = {
+const roulette = {
     init : function(){
         styleDiv(game.id, SCREEN.w, SCREEN.h)
         createReels()
         
-        /** init swap */
-        document.getElementById("lever").onclick = () => {
-            game.money -= 5
-            slotMachine.swap()
-        }
+        roulette.counter()
 
+    },
+    counter: function(){
+        game.reels_row.className = ""
+        let time = 15.00;
+        let count = setInterval(()=>{
+            time -= 0.01
+            game.reels_counter.innerHTML = "<p> Girando em "+time.toFixed(2).replace(".", ":")+"</p>"
+        }, 10)
+        setTimeout(()=>{
+            clearInterval(count)
+            roulette.swap()
+        }, 15000)
     },
     swap : function(){
         setTimeout(()=>{
-            game.reels.reels_row.className = "anim"
+            game.reels_itens.className = "anim opacity"
+            game.reels_row.className = "opacity"
+
             swap_itens()
         }, 1000)
         setTimeout(()=>{
-            game.reels.reels_row.className = ""
+            game.reels_itens.className = ""
             win()
+            setTimeout(()=>{
+                move_itens(game.moveNext)
+                roulette.counter()
+            }, 3000)
         }, 4000)
     }
 }
 function createReels(){
 	let reels = document.createElement("div")
+    let reels_historic = document.createElement("div")
     let reels_row = document.createElement("div")
     let reels_line = document.createElement("div")
+    let reels_itens = document.createElement("div")
+    let reels_counter = document.createElement("div")
     let line = document.createElement("div")
-    let reels_itens = []
 
     /** REELS */
     reels.id = "reels"
+    reels_historic.id = "reels-historic"
     reels_row.id = "reels-row"
     reels_line.id = "reels-line"
+    reels_itens.id = "reels-itens"
+    reels_counter.id = "reels-counter"
+
 
     styleDiv(reels,  game.reels.size.w,  game.reels.size.h)
-    styleDiv(reels_line, game.reels.size.w,  game.reels.size.h)
+    styleDiv(reels_historic, game.reels.size.w,  20)
     styleDiv(line, (game.reels.itens_size.w/20), game.reels.itens_size.h*2)
+    styleDiv(reels_counter, game.reels.size.w, (game.reels.itens_size.h*3))
     reels_line.appendChild(line)
+    reels_row.appendChild(reels_line)
+    reels_row.appendChild(reels_itens)
 
     let itens;
     let id;
@@ -67,50 +80,46 @@ function createReels(){
         /**White*/
         if( j == ((game.itens)/2)+1 ){
             itens = document.createElement("div")
-            id = 'reelsC'
+            id = 'white'
 
             styleDiv(itens, game.reels.itens_size.w, game.reels.itens_size.h)
             itens.id = id
-            itens.style.background = game.colors.white
-            itens.innerHTML = "<p>C</p>"
+            itens.innerHTML = "<p></p>"
 
-            reels_itens.push(itens)
-            reels_row.appendChild(itens)
+            reels_itens.appendChild(itens)
         }
 
         /**Reds*/
         itens = document.createElement("div")
-        id = 'reels'+j
+        id = 'red'
 
         styleDiv(itens, game.reels.itens_size.w, game.reels.itens_size.h)
         itens.id = id
-        itens.style.background = game.colors.red
         itens.innerHTML = "<p>"+j+"</p>"
-        reels_itens.push(itens)
-        reels_row.appendChild(itens)
+        reels_itens.appendChild(itens)
 
         /**Blacks*/
         let id_number = (game.itens*2)+1-j
         itens = document.createElement("div")
-        id = 'reels'+(id_number)
-
+        id = 'black'
+        
         styleDiv(itens, game.reels.itens_size.w, game.reels.itens_size.h)
         itens.id = id
-        itens.style.background = game.colors.black
         itens.innerHTML = "<p>"+(id_number)+"</p>"
 
-        reels_itens.push(itens)
-        reels_row.appendChild(itens)
+        reels_itens.appendChild(itens)
     }
 
-    reels.appendChild(reels_line)
+    //reels.appendChild(reels_historic)
+    reels.appendChild(reels_counter)
     reels.appendChild(reels_row)
     game.id.appendChild(reels)
-    game.reels = {
-        id : reels,
-        reels_row : reels_row,  
-        reels_itens : reels_itens
-    } 
+
+    game.reels_itens = reels_itens
+    game.reels_historic = reels_historic
+    game.reels_counter = reels_counter
+    game.reels_row = reels_row
+
 }
 function styleDiv(div, width, height){
     div.style.width = width+'px';
@@ -119,38 +128,27 @@ function styleDiv(div, width, height){
 function swap_itens(){
     let max = game.itens*2
     let min = 1
-    let reels_row = game.reels.reels_row
     let move = Math.trunc(Math.random() * (max - min) + min)
 
-	for (var i = 0; i < move; i++) {
-        reels_row.firstChild.parentNode.insertBefore(reels_row.lastChild, reels_row.firstChild)
-
-        //console.log(reels_row.lastChild, reels_row.firstChild, move)
+	move_itens(move)
+    game.moveNext = (game.itens*2)-move+1
+}
+function move_itens(move){
+    let reels_itens =  game.reels_itens
+    for (var i = 0; i < move; i++) {
+        reels_itens.firstChild.parentNode.insertBefore(reels_itens.lastChild, reels_itens.firstChild)
     }
 }
 function win(){
-    let pos = game.reels.reels_row.childNodes[game.itens] 
+    let pos = game.reels_itens.childNodes[game.itens] 
     let item_win = {
         number : pos.firstChild.innerHTML,
-        color : ''
+        color : pos.id
     }
-
-    /** rgbToHex */
-    let color = pos.style.background.replace(',', '').replace(',', '')
-
-    /** colors */
-    if(color == game.rgb.white){
-        item_win.color = "white"
-    }else if(color == game.rgb.red){
-        item_win.color = "red"
-    }else if(color == game.rgb.black){
-        item_win.color = "black"
-    }
-
-    console.log(item_win)    
+    return item_win
 }
 
-slotMachine.init()
+roulette.init()
 
 /*
 

@@ -24,6 +24,10 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+
+	color: var(--white);
+	font-family: cursive, 'Comfortaa';
+	font-weight: 500;
 }
 #game{
 	user-select: none;
@@ -36,46 +40,80 @@ body{
     overflow: hidden;
     background: var(--bg);
 }
-	#reels-line{
+	#reels-historic{
+		border-bottom: 1px solid var(--white)
+	}
+	#reels-counter{
 		position: absolute;
 		display: flex;
-	    align-items: center;
-	    justify-content: center;
-		padding: 20px;
-	}
-	#reels-line div{
-		display: flex;
+		justify-content: center;
 		z-index: 20;
-		background: var(--white);
-		border-radius: 3px;
+		font-size: 24px;
 	}
 	#reels-row{
-		display: flex;
-		gap: 20px;
+		display: grid;
+		grid-template-columns: 100%;
+		grid-template-rows: 100%;
+		align-items: center;
+		justify-content: center;
+		opacity: 0.5;
+		transition: opacity 0.5s;
 	}
-		#reels-row div{
+		#reels-line{
+		    grid-column-start: 1;
+		    grid-row-start: 1;
 			display: flex;
-	    	align-items: center;
-	    	justify-content: center;
-			border-radius: 10px;
+		    align-items: center;
+		    justify-content: center;
 		}
-			#reels-row div p{
+			#reels-line div{		
 				display: flex;
-	    		align-items: center;
-	    		justify-content: center;
-				width: 80%;
-				height: 80%;
-		    	border: 3px solid var(--white); 
-				border-radius: 50%;
-		    	color: var(--white);
-		    	font-family: cursive, 'Comfortaa';
-		    	font-size: 30px;
-		    	font-weight: 500;
+				z-index: 10;
+				background: var(--white);
+				border-radius: 3px;
 			}
+		#reels-itens{
+			grid-column-start: 1;
+		    grid-row-start: 1;
+			display: flex;
+			gap: 20px;
+		}
+			#reels-itens div{
+				display: flex;
+		    	align-items: center;
+		    	justify-content: center;
+				border-radius: 10px;
+			}
+				#reels-itens div p{
+					display: flex;
+		    		align-items: center;
+		    		justify-content: center;
+					width: 80%;
+					height: 80%;
+			    	border: 3px solid var(--white); 
+					border-radius: 50%;
+			    	font-size: 30px;
+				}
+			#reels-itens #black{
+				color: var(--white);
+				background: var(--black);
+			}
+			#reels-itens #red{
+				color: var(--white);
+				background: var(--red);
+			}
+			#reels-itens #white{
+				color: var(--red);
+				background: var(--white);
+			}
+	.opacity{
+		opacity: 1 !important;
+		transition: opacity 0.5s;
+
+	}
 	.anim{
 		animation: spin 0.1s ease-in-out infinite;
 	}
-
 	@keyframes spin{
 		0%{
 			transform: translateX(0);
@@ -87,7 +125,3 @@ body{
 			transform: translateX(0px);
 		}
 	}
-#lever{
-	outline: none;
-	padding: 20px;
-}
