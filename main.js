@@ -48,7 +48,7 @@ const roulette = {
 }
 function createReels(){
 	let reels = document.createElement("div")
-    let reels_historic = document.createElement("div")
+    //let reels_historic = document.createElement("div")
     let reels_row = document.createElement("div")
     let reels_line = document.createElement("div")
     let reels_itens = document.createElement("div")
@@ -57,7 +57,7 @@ function createReels(){
 
     /** REELS */
     reels.id = "reels"
-    reels_historic.id = "reels-historic"
+    //reels_historic.id = "reels-historic"
     reels_row.id = "reels-row"
     reels_line.id = "reels-line"
     reels_itens.id = "reels-itens"
@@ -65,7 +65,7 @@ function createReels(){
 
 
     styleDiv(reels,  game.reels.size.w,  game.reels.size.h)
-    styleDiv(reels_historic, game.reels.size.w,  20)
+    //styleDiv(reels_historic, game.reels.size.w,  20)
     styleDiv(line, (game.reels.itens_size.w/20), game.reels.itens_size.h*2)
     styleDiv(reels_counter, game.reels.size.w, (game.reels.itens_size.h*3))
     reels_line.appendChild(line)
@@ -84,7 +84,7 @@ function createReels(){
 
             styleDiv(itens, game.reels.itens_size.w, game.reels.itens_size.h)
             itens.id = id
-            itens.innerHTML = "<p></p>"
+            itens.innerHTML = "<p>J</p>"
 
             reels_itens.appendChild(itens)
         }
@@ -116,7 +116,7 @@ function createReels(){
     game.id.appendChild(reels)
 
     game.reels_itens = reels_itens
-    game.reels_historic = reels_historic
+    //game.reels_historic = reels_historic
     game.reels_counter = reels_counter
     game.reels_row = reels_row
 

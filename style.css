@@ -40,9 +40,9 @@ body{
     overflow: hidden;
     background: var(--bg);
 }
-	#reels-historic{
+	/*#reels-historic{
 		border-bottom: 1px solid var(--white)
-	}
+	}*/
 	#reels-counter{
 		position: absolute;
 		display: flex;
@@ -102,9 +102,13 @@ body{
 				color: var(--white);
 				background: var(--red);
 			}
-			#reels-itens #white{
+			#reels-itens #white {
 				color: var(--red);
 				background: var(--white);
+			}
+			#reels-itens #white p{
+			   	border: 3px solid var(--red);
+				border-radius: 50%;
 			}
 	.opacity{
 		opacity: 1 !important;
