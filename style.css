@@ -24,7 +24,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-
+	flex-direction: column;
+    gap: 20px;
 	color: var(--white);
 	font-family: 'Comfortaa',  cursive;
 	font-weight: 500;
@@ -40,9 +41,6 @@ body{
     overflow: hidden;
     background: var(--bg);
 }
-	/*#reels-historic{
-		border-bottom: 1px solid var(--white)
-	}*/
 	#reels-counter{
 		position: absolute;
 		display: flex;
@@ -129,3 +127,9 @@ body{
 			transform: translateX(0px);
 		}
 	}
+.coded{
+	color: #000;
+	align-self: center;
+	font-size: 20px;
+	font-family: 'Noto Sans', sans-serif;
+}

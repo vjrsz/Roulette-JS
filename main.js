@@ -14,6 +14,7 @@ const roulette = {
         styleDiv(game.id, SCREEN.w, SCREEN.h)
         createReels()
         
+        roulette.rodadas = 0
         roulette.counter()
 
     },
@@ -119,17 +120,23 @@ function createReels(){
     //game.reels_historic = reels_historic
     game.reels_counter = reels_counter
     game.reels_row = reels_row
-
 }
 function styleDiv(div, width, height){
     div.style.width = width+'px';
     div.style.height = height+'px';
 }
 function swap_itens(){
-    let max = game.itens*2
+    let max = (game.itens*2)+1
     let min = 1
     let move = Math.trunc(Math.random() * (max - min) + min)
 
+    if( roulette.rodadas == 0){
+        move = (game.itens*2)+1
+        roulette.rodadas = 0
+    }
+    else{ 
+        roulette.rodadas += 1
+    }
 	move_itens(move)
     game.moveNext = (game.itens*2)-move+1
 }
