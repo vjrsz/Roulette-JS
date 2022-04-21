@@ -1,5 +1,5 @@
 <div align="center">
-    <img width="100px" src="./screenshots.png">
+    <img src="./screenshots.png">
 </div>
 
 <h1 align="center">Roulette JS</h1>
